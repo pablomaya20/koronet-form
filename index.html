@@ -675,19 +675,16 @@ async function handleSubmit(){
       implementation_questions:f.implementation_questions
     }
   };
-  try{
-    var res=await fetch(EP,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-    if(!res.ok)throw new Error("HTTP "+res.status);
-    document.getElementById("form-container").style.display="none";
-    var ss=document.getElementById("success-screen");
-    document.getElementById("success-title").textContent=T[state.lang].successTitle;
-    document.getElementById("success-sub").textContent=T[state.lang].successSub;
-    ss.classList.add("visible");
-    window.scrollTo({top:0,behavior:"smooth"});
-  }catch(err){
-    btn.disabled=false;btn.textContent=T[state.lang].submit;
-    if(errEl){errEl.textContent=T[state.lang].submitError;errEl.classList.add("visible");}
-  }
+  await fetch(EP, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'text/plain'},
+    body: JSON.stringify(payload)
+  });
+  btn.disabled = false;
+  btn.textContent = T[state.lang].submit;
+  document.getElementById('form-container').style.display = 'none';
+  document.getElementById('success-screen').classList.add('visible');
 }
 
 // -- WELCOME SCREEN --
