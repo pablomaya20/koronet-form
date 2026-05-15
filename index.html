@@ -70,10 +70,26 @@ legend{font-size:13px;font-weight:500;color:#ccc;margin-bottom:10px;}
 .btn-submit{flex:1;width:100%;}
 #submit-error{color:#ff4444;font-size:13px;margin-top:12px;text-align:center;display:none;}
 #submit-error.visible{display:block;}
-#success-screen{display:none;text-align:center;padding:60px 24px;}
-#success-screen.visible{display:block;}
-.success-title{font-size:24px;font-weight:700;color:#fff;margin-bottom:12px;}
-.success-sub{font-size:15px;color:#888;}
+#success-screen{display:none;position:fixed;inset:0;width:100vw;height:100vh;background:#080c12;z-index:100;flex-direction:column;align-items:center;justify-content:center;font-family:system-ui,-apple-system,sans-serif;overflow:hidden;}
+#success-screen.visible{display:flex;}
+#success-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.success-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:clamp(16px,2vw,24px);max-width:520px;width:100%;padding:24px;text-align:center;}
+.success-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
+.success-check-wrap{width:clamp(60px,8vw,80px);height:clamp(60px,8vw,80px);border-radius:50%;border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;}
+.success-check-inner{width:78%;height:78%;border-radius:50%;background:rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;}
+.success-title{font-size:clamp(24px,3.5vw,36px);font-weight:700;color:#ffffff;letter-spacing:-0.5px;line-height:1.2;margin:0;}
+.success-sub{font-size:clamp(12px,1.2vw,15px);color:rgba(255,255,255,0.38);line-height:1.7;margin:0;}
+.success-divider{width:40px;height:1px;background:rgba(255,255,255,0.1);}
+.success-cta-label{font-size:10px;color:rgba(255,255,255,0.22);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;}
+.success-cta-card{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:18px 20px;cursor:pointer;transition:all 0.25s ease;text-decoration:none;width:100%;}
+.success-cta-card:hover{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.2);transform:translateY(-2px);}
+.success-cta-icon{width:44px;height:44px;border-radius:10px;background:rgba(29,191,191,0.1);border:1px solid rgba(29,191,191,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.success-cta-text{flex:1;text-align:left;}
+.success-cta-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:3px;}
+.success-cta-sub{font-size:11px;color:rgba(255,255,255,0.32);}
+.success-cta-arrow{font-size:16px;color:rgba(255,255,255,0.28);transition:transform 0.25s;}
+.success-cta-card:hover .success-cta-arrow{transform:translateX(4px);}
+.success-powered{font-size:9px;color:rgba(255,255,255,0.13);text-transform:uppercase;letter-spacing:0.14em;margin-top:4px;}
 @media(max-width:768px){#app{padding:20px 16px 60px;}.section-panel{padding:20px;}.check-grid{grid-template-columns:1fr;}}
 @media(max-width:480px){body{padding-top:120px;}.header-inner{flex-wrap:wrap;gap:8px;}.section-title{font-size:18px;}}
 :focus-visible{outline:2px solid #1DBFBF;outline-offset:2px;}
@@ -124,19 +140,41 @@ legend{font-size:13px;font-weight:500;color:#ccc;margin-bottom:10px;}
   <div id="prep-screen"></div>
   <div id="form-container"></div>
   <div id="success-screen" role="status" aria-live="polite">
-    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:24px">
-      <svg width="40" height="40" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-        <ellipse cx="11" cy="17" rx="9" ry="13" fill="#1DBFBF" opacity="0.85" transform="rotate(-15 11 17)"/>
-        <ellipse cx="21" cy="15" rx="9" ry="13" fill="#1DBFBF" opacity="0.65" transform="rotate(15 21 15)"/>
-      </svg>
-      <span style="font-size:22px;font-weight:700;color:#fff">Koronet</span>
+    <canvas id="success-canvas" aria-hidden="true"></canvas>
+    <div class="success-content">
+      <div class="success-logo-row">
+        <img id="success-logo" alt="Koronet" style="height:clamp(28px,3.5vw,40px);width:auto">
+      </div>
+      <div class="success-check-wrap">
+        <div class="success-check-inner">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <circle cx="14" cy="14" r="13" stroke="rgba(29,191,191,0.5)" stroke-width="1.5"/>
+            <path d="M8 14l4 4 8-8" stroke="#1DBFBF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <p class="success-title" id="success-title"></p>
+        <p class="success-sub" id="success-sub" style="margin-top:8px"></p>
+      </div>
+      <div class="success-divider"></div>
+      <div style="width:100%">
+        <div class="success-cta-label" id="success-cta-label">Mientras tanto, explora más</div>
+        <a class="success-cta-card" href="https://koronet.com/" target="_blank" rel="noopener">
+          <div class="success-cta-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1DBFBF" stroke-width="1.8" stroke-linecap="round">
+              <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/>
+            </svg>
+          </div>
+          <div class="success-cta-text">
+            <div class="success-cta-title" id="success-cta-title">Descubre el ecosistema Koronet</div>
+            <div class="success-cta-sub" id="success-cta-sub">Komet · UNOSOF · Axerrio — conectando la industria floral</div>
+          </div>
+          <span class="success-cta-arrow">→</span>
+        </a>
+      </div>
+      <div class="success-powered">Powered by Koronet</div>
     </div>
-    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" style="display:block;margin:0 auto 24px" aria-hidden="true">
-      <circle cx="36" cy="36" r="34" stroke="#1DBFBF" stroke-width="3"/>
-      <path d="M22 36l10 10 18-20" stroke="#1DBFBF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <p class="success-title" id="success-title">&#161;Formulario enviado exitosamente!</p>
-    <p class="success-sub" id="success-sub">El equipo de eSuite se pondr&#225; en contacto contigo pronto.</p>
   </div>
 </main><script>
 var EP=atob("aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J4QlVKQkUwbnRYNU1kZ2Y2QndicHBYcC1uQ1RyQnp4ZzVZZTY1d0JFLXdaVEh0OThTYkJ2YVRfSktlSzRhRE12d1R6US9leGVj");
@@ -154,6 +192,9 @@ atLeastOneRow:"Agrega al menos una especie.",
 otherRequired:"Especifica el campo \"Otro\".",
 successTitle:"¡Formulario enviado exitosamente!",
 successSub:"El equipo de eSuite se pondrá en contacto contigo pronto.",
+successCTALabel:"Mientras tanto, explora más",
+successCTATitle:"Descubre el ecosistema Koronet",
+successCTASub:"Komet · UNOSOF · Axerrio — conectando la industria floral",
 submitError:"Ocurrió un error al enviar. Por favor intenta de nuevo.",
 s1_title:"Tu Empresa",s2_title:"Objetivos y Expectativas",s3_title:"Tu Equipo",
 s4_title:"Modo de Operación",s5_title:"Tu Producto",s6_title:"Inventario",
@@ -269,6 +310,9 @@ atLeastOneRow:"Please add at least one species.",
 otherRequired:"Please fill in the Other field.",
 successTitle:"Form submitted successfully!",
 successSub:"The eSuite team will be in touch with you soon.",
+successCTALabel:"In the meantime, explore more",
+successCTATitle:"Discover the Koronet ecosystem",
+successCTASub:"Komet · UNOSOF · Axerrio — connecting the floral industry",
 submitError:"An error occurred while submitting. Please try again.",
 s1_title:"Your Company",s2_title:"Goals and Expectations",s3_title:"Your Team",
 s4_title:"Operation Mode",s5_title:"Your Product",s6_title:"Inventory",
@@ -686,10 +730,15 @@ async function handleSubmit(){
   btn.textContent = T[state.lang].submit;
   document.getElementById('form-container').style.display = 'none';
   document.getElementById('success-screen').classList.add('visible');
+  var _wImg=document.querySelector('#welcome-screen img');if(_wImg)document.getElementById('success-logo').src=_wImg.src;
+  document.getElementById('success-cta-label').textContent=T[state.lang].successCTALabel;
+  document.getElementById('success-cta-title').textContent=T[state.lang].successCTATitle;
+  document.getElementById('success-cta-sub').textContent=T[state.lang].successCTASub;
+  startSuccessConstellation();
 }
 
 // -- WELCOME SCREEN --
-var _csRaf=null,_csResize=null;
+var _csRaf=null,_csResize=null,_scRaf=null,_scResize=null;
 function stopConstellation(){
   if(_csRaf){cancelAnimationFrame(_csRaf);_csRaf=null;}
   if(_csResize){window.removeEventListener("resize",_csResize);_csResize=null;}
@@ -788,6 +837,100 @@ function startConstellation(){
   tick();
   _csResize=function(){resize();};
   window.addEventListener("resize",_csResize);
+}
+function startSuccessConstellation(){
+  var canvas=document.getElementById("success-canvas");
+  if(!canvas)return;
+  var ctx=canvas.getContext("2d");
+  var W,H,dpr;
+  var N=80,BASE_DIST=0.14,NEW_MIN=0.12,NEW_MAX=0.32,MAX_ACTIVE=12,frame=0;
+  var pts=[],active=[];
+  function resize(){
+    dpr=window.devicePixelRatio||1;
+    W=window.innerWidth;H=window.innerHeight;
+    canvas.width=W*dpr;canvas.height=H*dpr;
+    ctx.scale(dpr,dpr);
+  }
+  function initPts(){
+    pts=[];
+    for(var i=0;i<N;i++){pts.push({x:Math.random(),y:Math.random(),vx:(Math.random()-0.5)*0.0003,vy:(Math.random()-0.5)*0.0003,teal:i%6===0});}
+  }
+  function pdist(a,b){var dx=a.x-b.x,dy=a.y-b.y;return Math.sqrt(dx*dx+dy*dy);}
+  function drawBase(){
+    for(var i=0;i<N;i++){
+      for(var j=i+1;j<N;j++){
+        var d=pdist(pts[i],pts[j]);
+        if(d<BASE_DIST){
+          ctx.beginPath();ctx.moveTo(pts[i].x*W,pts[i].y*H);ctx.lineTo(pts[j].x*W,pts[j].y*H);
+          ctx.strokeStyle=(pts[i].teal||pts[j].teal)?"rgba(29,191,191,0.12)":"rgba(255,255,255,0.07)";
+          ctx.lineWidth=0.5;ctx.stroke();
+        }
+      }
+    }
+  }
+  function spawnActive(){
+    if(active.length>=MAX_ACTIVE)return;
+    var idx=Math.floor(Math.random()*N),cands=[];
+    for(var j=0;j<N;j++){
+      if(j===idx)continue;
+      var d=pdist(pts[idx],pts[j]);
+      if(d>=NEW_MIN&&d<=NEW_MAX)cands.push(j);
+    }
+    if(!cands.length)return;
+    active.push({from:idx,to:cands[Math.floor(Math.random()*cands.length)],prog:0,drawF:80,life:260+Math.floor(Math.random()*200)});
+  }
+  var reduced=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  resize();initPts();
+  if(reduced){
+    ctx.clearRect(0,0,W,H);drawBase();
+    for(var i=0;i<N;i++){
+      ctx.beginPath();ctx.arc(pts[i].x*W,pts[i].y*H,pts[i].teal?2.2:1.4,0,Math.PI*2);
+      ctx.fillStyle=pts[i].teal?"rgba(29,191,191,0.7)":"rgba(255,255,255,0.35)";ctx.fill();
+    }
+    return;
+  }
+  function tick(){
+    _scRaf=requestAnimationFrame(tick);frame++;
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<N;i++){
+      pts[i].x+=pts[i].vx;pts[i].y+=pts[i].vy;
+      if(pts[i].x<0||pts[i].x>1)pts[i].vx*=-1;
+      if(pts[i].y<0||pts[i].y>1)pts[i].vy*=-1;
+    }
+    drawBase();
+    if(frame%55===0)spawnActive();
+    var toRemove=[];
+    for(var k=0;k<active.length;k++){
+      var ac=active[k];ac.prog++;
+      if(ac.prog>=ac.life){toRemove.push(k);continue;}
+      var dp=Math.min(1,ac.prog/ac.drawF);
+      var age=ac.prog/ac.life;
+      var op=Math.sin(age*Math.PI)*0.9;
+      var ax=pts[ac.from].x*W,ay=pts[ac.from].y*H;
+      var bx=pts[ac.to].x*W,by=pts[ac.to].y*H;
+      var ex=ax+(bx-ax)*dp,ey=ay+(by-ay)*dp;
+      ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(ex,ey);
+      ctx.strokeStyle="rgba(255,255,255,"+op.toFixed(3)+")";
+      ctx.lineWidth=1.2;ctx.stroke();
+      if(dp<1){
+        ctx.beginPath();ctx.arc(ex,ey,2*dp,0,Math.PI*2);
+        ctx.fillStyle="rgba(255,255,255,"+(op*0.9).toFixed(3)+")";ctx.fill();
+      }
+    }
+    for(var ri=toRemove.length-1;ri>=0;ri--)active.splice(toRemove[ri],1);
+    var aset={};
+    for(var k=0;k<active.length;k++){aset[active[k].from]=1;aset[active[k].to]=1;}
+    for(var i=0;i<N;i++){
+      var ia=aset[i];
+      var r2=ia?(pts[i].teal?3.5:2.2):(pts[i].teal?2.2:1.4);
+      ctx.beginPath();ctx.arc(pts[i].x*W,pts[i].y*H,r2,0,Math.PI*2);
+      ctx.fillStyle=pts[i].teal?(ia?"rgba(29,191,191,0.95)":"rgba(29,191,191,0.7)"):(ia?"rgba(255,255,255,0.9)":"rgba(255,255,255,0.35)");
+      ctx.fill();
+    }
+  }
+  tick();
+  _scResize=function(){resize();};
+  window.addEventListener("resize",_scResize);
 }
 function renderWelcome(){
   var ws=document.getElementById("welcome-screen");
