@@ -73,23 +73,21 @@ legend{font-size:13px;font-weight:500;color:#ccc;margin-bottom:10px;}
 #success-screen{display:none;position:fixed;inset:0;width:100vw;height:100vh;background:#080c12;z-index:100;flex-direction:column;align-items:center;justify-content:center;font-family:system-ui,-apple-system,sans-serif;overflow:hidden;}
 #success-screen.visible{display:flex;}
 #success-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
-.success-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:clamp(16px,2vw,24px);max-width:520px;width:100%;padding:24px;text-align:center;}
-.success-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
-.success-check-wrap{width:clamp(60px,8vw,80px);height:clamp(60px,8vw,80px);border-radius:50%;border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;}
-.success-check-inner{width:78%;height:78%;border-radius:50%;background:rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;}
-.success-title{font-size:clamp(24px,3.5vw,36px);font-weight:700;color:#ffffff;letter-spacing:-0.5px;line-height:1.2;margin:0;}
-.success-sub{font-size:clamp(12px,1.2vw,15px);color:rgba(255,255,255,0.38);line-height:1.7;margin:0;}
-.success-divider{width:40px;height:1px;background:rgba(255,255,255,0.1);}
-.success-cta-label{font-size:10px;color:rgba(255,255,255,0.22);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;}
-.success-cta-card{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:18px 20px;cursor:pointer;transition:all 0.25s ease;text-decoration:none;width:100%;}
-.success-cta-card:hover{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.2);transform:translateY(-2px);}
-.success-cta-icon{width:44px;height:44px;border-radius:10px;background:rgba(29,191,191,0.1);border:1px solid rgba(29,191,191,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.success-cta-text{flex:1;text-align:left;}
-.success-cta-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:3px;}
-.success-cta-sub{font-size:11px;color:rgba(255,255,255,0.32);}
-.success-cta-arrow{font-size:16px;color:rgba(255,255,255,0.28);transition:transform 0.25s;}
-.success-cta-card:hover .success-cta-arrow{transform:translateX(4px);}
-.success-powered{font-size:9px;color:rgba(255,255,255,0.13);text-transform:uppercase;letter-spacing:0.14em;margin-top:4px;}
+.success-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:clamp(16px,2.2vw,28px);max-width:520px;width:100%;padding:24px;text-align:center;}
+.success-logo-row{display:flex;align-items:center;justify-content:center;margin-bottom:4px;}
+.success-check-wrap{width:clamp(56px,7vw,72px);height:clamp(56px,7vw,72px);border-radius:50%;border:1.5px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;}
+.success-check-inner{width:80%;height:80%;border-radius:50%;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;}
+.success-title{font-size:clamp(28px,4vw,48px);font-weight:700;color:#ffffff;letter-spacing:-0.8px;line-height:1.15;margin:0;}
+.success-sub{font-size:clamp(13px,1.3vw,16px);color:rgba(255,255,255,0.4);line-height:1.7;margin:0;max-width:400px;}
+.success-divider{width:32px;height:1px;background:rgba(255,255,255,0.1);}
+.success-cta-section{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;}
+.success-cta-eyebrow{font-size:10px;color:rgba(255,255,255,0.25);letter-spacing:0.14em;text-transform:uppercase;}
+.success-cta-btn{display:flex;align-items:center;justify-content:center;gap:10px;background:#ffffff;color:#000000;font-size:15px;font-weight:700;padding:16px 36px;border-radius:10px;text-decoration:none;width:100%;transition:all 0.25s ease;letter-spacing:0.01em;border:none;cursor:pointer;}
+.success-cta-btn:hover{background:rgba(255,255,255,0.88);transform:scale(1.03);}
+.success-cta-arrow{transition:transform 0.25s ease;font-size:17px;}
+.success-cta-btn:hover .success-cta-arrow{transform:translateX(5px);}
+.success-cta-desc{font-size:12px;color:rgba(255,255,255,0.22);line-height:1.65;}
+.success-powered{font-size:9px;color:rgba(255,255,255,0.12);text-transform:uppercase;letter-spacing:0.14em;margin-top:4px;}
 @media(max-width:768px){#app{padding:20px 16px 60px;}.section-panel{padding:20px;}.check-grid{grid-template-columns:1fr;}}
 @media(max-width:480px){body{padding-top:120px;}.header-inner{flex-wrap:wrap;gap:8px;}.section-title{font-size:18px;}}
 :focus-visible{outline:2px solid #1DBFBF;outline-offset:2px;}
@@ -148,8 +146,8 @@ legend{font-size:13px;font-weight:500;color:#ccc;margin-bottom:10px;}
       <div class="success-check-wrap">
         <div class="success-check-inner">
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <circle cx="14" cy="14" r="13" stroke="rgba(29,191,191,0.5)" stroke-width="1.5"/>
-            <path d="M8 14l4 4 8-8" stroke="#1DBFBF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="14" cy="14" r="13" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+            <path d="M8 14l4 4 8-8" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
       </div>
@@ -158,20 +156,13 @@ legend{font-size:13px;font-weight:500;color:#ccc;margin-bottom:10px;}
         <p class="success-sub" id="success-sub" style="margin-top:8px"></p>
       </div>
       <div class="success-divider"></div>
-      <div style="width:100%">
-        <div class="success-cta-label" id="success-cta-label">Mientras tanto, explora más</div>
-        <a class="success-cta-card" href="https://koronet.com/" target="_blank" rel="noopener">
-          <div class="success-cta-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1DBFBF" stroke-width="1.8" stroke-linecap="round">
-              <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/>
-            </svg>
-          </div>
-          <div class="success-cta-text">
-            <div class="success-cta-title" id="success-cta-title">Descubre el ecosistema Koronet</div>
-            <div class="success-cta-sub" id="success-cta-sub">Komet · UNOSOF · Axerrio — conectando la industria floral</div>
-          </div>
+      <div class="success-cta-section">
+        <div class="success-cta-eyebrow" id="success-cta-label">Mientras tanto, explora más</div>
+        <a class="success-cta-btn" href="https://koronet.com/" target="_blank" rel="noopener">
+          <span id="success-cta-title">Explorar koronet.com</span>
           <span class="success-cta-arrow">→</span>
         </a>
+        <div class="success-cta-desc" id="success-cta-sub">Komet · UNOSOF · Axerrio — conectando la industria floral</div>
       </div>
       <div class="success-powered">Powered by Koronet</div>
     </div>
@@ -767,7 +758,7 @@ function startConstellation(){
         var d=pdist(pts[i],pts[j]);
         if(d<BASE_DIST){
           ctx.beginPath();ctx.moveTo(pts[i].x*W,pts[i].y*H);ctx.lineTo(pts[j].x*W,pts[j].y*H);
-          ctx.strokeStyle=(pts[i].teal||pts[j].teal)?"rgba(29,191,191,0.12)":"rgba(255,255,255,0.07)";
+          ctx.strokeStyle="rgba(255,255,255,0.07)";
           ctx.lineWidth=0.5;ctx.stroke();
         }
       }
@@ -789,8 +780,8 @@ function startConstellation(){
   if(reduced){
     ctx.clearRect(0,0,W,H);drawBase();
     for(var i=0;i<N;i++){
-      ctx.beginPath();ctx.arc(pts[i].x*W,pts[i].y*H,pts[i].teal?2.2:1.4,0,Math.PI*2);
-      ctx.fillStyle=pts[i].teal?"rgba(29,191,191,0.7)":"rgba(255,255,255,0.35)";ctx.fill();
+      ctx.beginPath();ctx.arc(pts[i].x*W,pts[i].y*H,1.4,0,Math.PI*2);
+      ctx.fillStyle="rgba(255,255,255,0.35)";ctx.fill();
     }
     return;
   }
@@ -828,9 +819,9 @@ function startConstellation(){
     for(var k=0;k<active.length;k++){aset[active[k].from]=1;aset[active[k].to]=1;}
     for(var i=0;i<N;i++){
       var ia=aset[i];
-      var r2=ia?(pts[i].teal?3.5:2.2):(pts[i].teal?2.2:1.4);
+      var r2=ia?2.2:1.4;
       ctx.beginPath();ctx.arc(pts[i].x*W,pts[i].y*H,r2,0,Math.PI*2);
-      ctx.fillStyle=pts[i].teal?(ia?"rgba(29,191,191,0.95)":"rgba(29,191,191,0.7)"):(ia?"rgba(255,255,255,0.9)":"rgba(255,255,255,0.35)");
+      ctx.fillStyle=ia?"rgba(255,255,255,0.9)":"rgba(255,255,255,0.35)";
       ctx.fill();
     }
   }
@@ -862,7 +853,7 @@ function startSuccessConstellation(){
         var d=pdist(pts[i],pts[j]);
         if(d<BASE_DIST){
           ctx.beginPath();ctx.moveTo(pts[i].x*W,pts[i].y*H);ctx.lineTo(pts[j].x*W,pts[j].y*H);
-          ctx.strokeStyle=(pts[i].teal||pts[j].teal)?"rgba(29,191,191,0.12)":"rgba(255,255,255,0.07)";
+          ctx.strokeStyle="rgba(255,255,255,0.07)";
           ctx.lineWidth=0.5;ctx.stroke();
         }
       }
@@ -884,8 +875,8 @@ function startSuccessConstellation(){
   if(reduced){
     ctx.clearRect(0,0,W,H);drawBase();
     for(var i=0;i<N;i++){
-      ctx.beginPath();ctx.arc(pts[i].x*W,pts[i].y*H,pts[i].teal?2.2:1.4,0,Math.PI*2);
-      ctx.fillStyle=pts[i].teal?"rgba(29,191,191,0.7)":"rgba(255,255,255,0.35)";ctx.fill();
+      ctx.beginPath();ctx.arc(pts[i].x*W,pts[i].y*H,1.4,0,Math.PI*2);
+      ctx.fillStyle="rgba(255,255,255,0.35)";ctx.fill();
     }
     return;
   }
@@ -922,9 +913,9 @@ function startSuccessConstellation(){
     for(var k=0;k<active.length;k++){aset[active[k].from]=1;aset[active[k].to]=1;}
     for(var i=0;i<N;i++){
       var ia=aset[i];
-      var r2=ia?(pts[i].teal?3.5:2.2):(pts[i].teal?2.2:1.4);
+      var r2=ia?2.2:1.4;
       ctx.beginPath();ctx.arc(pts[i].x*W,pts[i].y*H,r2,0,Math.PI*2);
-      ctx.fillStyle=pts[i].teal?(ia?"rgba(29,191,191,0.95)":"rgba(29,191,191,0.7)"):(ia?"rgba(255,255,255,0.9)":"rgba(255,255,255,0.35)");
+      ctx.fillStyle=ia?"rgba(255,255,255,0.9)":"rgba(255,255,255,0.35)";
       ctx.fill();
     }
   }
